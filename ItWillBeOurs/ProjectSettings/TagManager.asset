@@ -13,6 +13,7 @@ TagManager:
   - UI
   - 
   - 
+  - Wall
   - 
   - 
   - 
@@ -24,9 +25,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - LightSource1
+  - LightSource2
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Walls
+    uniqueID: 866315107
+    locked: 0
+  - name: Player
+    uniqueID: 1946318561
     locked: 0
