@@ -121,4 +121,60 @@ public abstract class MathfExtras : MonoBehaviour
 
         return new Vector2Int(x, y);
     }
+
+    public List<Vector2Int> GetIntOnlyLinePoints(Vector2Int _from, Vector2Int _to)
+    {  
+        List<Vector2Int> _points = new List<Vector2Int>();
+        int dx = _to.x - _from.x;
+        int dy = _to.y - _from.y;
+        Vector2Int cal;
+
+        if (dx == 0)
+        {
+            if(dy < 0)
+            {
+                cal = _to;
+                _to = _from;
+                _from = cal;
+            }
+            for (int y = _from.y; y <= _to.y; y++)
+            {
+                _points.Add(new Vector2Int(_from.x, y));
+            }
+        }
+        else
+        {
+            if (_from.x > _to.x)
+            {
+                cal = _to;
+                _to = _from;
+                _from = cal;
+                dx *= -1;
+                dy *= -1;
+            }
+
+            float m = Mathf.Abs((float)dy / (float)dx);
+            Debug.Log(m + " = " + dy + "/ " + dx);
+            float error = 0;
+            int y = _from.y;
+            for (int x = _from.x; x <= _to.x; x++)
+            {
+                _points.Add(new Vector2Int(x, y));
+                error += m;
+                while (error >= 0.5f)
+                {
+                    y += Mathf.Abs(dy)/dy;
+                    Debug.Log(x + " , " + y);
+                    error -= 1;
+                    if(error >= 0.5f && y < Mathf.Max(_from.y,_to.y) && y > Mathf.Min(_from.y,_to.y)) _points.Add(new Vector2Int(x, y));
+                }
+            }
+        }
+        /*
+        for (int i = 0; i < _points.Count; i++)
+        {
+            Debug.Log(_points[i]);
+        }*/
+        return _points;
+    }
 }
