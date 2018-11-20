@@ -68,7 +68,7 @@ public class PlayerManager : HistoryAgent {
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             historyManager.teamHistoryData[historyAgentStats.teamIndex].recordings.Add(GetAndEndCurrentRecording());
-            StartCoroutine(historyManager.Playback(historyAgentStats.teamIndex, 0));
+            StartCoroutine(historyManager.Playback(historyAgentStats.teamIndex, 0,true));
         }
         if (Input.GetKey(KeyCode.T)) ; //Kill();
 

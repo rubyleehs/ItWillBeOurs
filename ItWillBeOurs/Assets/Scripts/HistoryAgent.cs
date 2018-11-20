@@ -59,6 +59,11 @@ public class HistoryAgent : MathfExtras {
     public virtual void Initialize(int _teamIndex, int _recordingIndex, Vector2 _position, float _angle) //should be called whenever new obj/just got from pool
     {
         Debug.Log("History Agent Initialization");
+
+        historyAgentStats.teamIndex = _teamIndex;
+        historyAgentStats.recordingIndex = _recordingIndex;
+        historyAgentStats.currentHitPoints = historyAgentStats.maxHitPoints;
+
         isAlive = true;
         if(transform == null) transform = this.GetComponent<Transform>();
         this.transform.position = _position;
@@ -67,10 +72,6 @@ public class HistoryAgent : MathfExtras {
         if (animator == null) animator = GetComponent<CharacterAnimator>();
         animator.enabled = true;
         animator.Initialize();
-
-        historyAgentStats.teamIndex = _teamIndex;
-        historyAgentStats.recordingIndex = _recordingIndex;
-        historyAgentStats.currentHitPoints = historyAgentStats.maxHitPoints;
     }
 
     //===== Pooling End =====
