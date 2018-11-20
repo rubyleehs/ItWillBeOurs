@@ -38,9 +38,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4123738592598182}
   - component: {fileID: 212914751762338308}
-  - component: {fileID: 114955299596050018}
-  - component: {fileID: 114824767529941004}
   - component: {fileID: 58643438870600530}
+  - component: {fileID: 114092653488562864}
+  - component: {fileID: 114511098852988930}
   m_Layer: 0
   m_Name: Shadow
   m_TagString: Untagged
@@ -132,22 +132,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
---- !u!114 &114698956985965590
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1201708266951914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3198a63ad087d434980e8d132b344989, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mShadowMapSlot: 0
-  color: {r: 1, g: 1, b: 1, a: 1}
-  falloffExponent: 0.2
-  angleFalloffExponent: 0
---- !u!114 &114824767529941004
+--- !u!114 &114092653488562864
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,32 +140,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1618192756104366}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29eb7f4a4eff1234b92ae8505977079e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fd1339e81345554b9f05e924e643021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   frames:
-  - {fileID: 21300000, guid: f6064f393ac9f474ab2f1dac3bca3290, type: 3}
   - {fileID: 21300000, guid: 2a8cd2f7214a544aa8852d71eb699fa9, type: 3}
+  - {fileID: 21300000, guid: f6064f393ac9f474ab2f1dac3bca3290, type: 3}
   - {fileID: 21300000, guid: ee4f87a30f80949568a033d23b002f08, type: 3}
   - {fileID: 21300000, guid: 71be17a8981f545f7ac837bc7bcf795b, type: 3}
-  idleFrame: 1
+  idleFrame: 0
   deathFrame: 3
-  moveFrames: {x: 0, y: 2}
+  moveFrames: {x: 1, y: 2}
   footstepVolume: 1
   footstepClip: {fileID: 0}
   playFootstep: 
   audioClipPlayerPrefab: {fileID: 0}
-  timePerFrame: 0.25
+  timePerFrame: 0.18
   deadPauseDuration: 1
-  deadFadeDuration: 6.55
-  deadTargetLightFallOffExponent: 150
-  deadTargetAngularLightFallOffExponent: 45
-  deadTargetLightFallOffTimeOffset: 0.173
-  deadTargetAngularLightShutoffPoint: 0.34
-  deadTargetCompleteShutoffPoint: 0.7
+  deadFadeDuration: 5
+  deadTargetLightFallOffExponent: 20
+  deadTargetAngularLightFallOffExponent: 150
+  deadTargetLightFallOffTimeOffset: 0.25
+  deadTargetAngularLightShutoffPoint: 1
+  deadTargetCompleteShutoffPoint: 0.56
   light2D: {fileID: 114698956985965590}
+  light2DCamera: {fileID: 0}
   lightMeshRenderer: {fileID: 23701700836646134}
---- !u!114 &114955299596050018
+--- !u!114 &114511098852988930
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,7 +184,22 @@ MonoBehaviour:
     recordingIndex: 0
     maxHitPoints: 3
     currentHitPoints: 3
-  animator: {fileID: 114824767529941004}
+  animator: {fileID: 114092653488562864}
+--- !u!114 &114698956985965590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1201708266951914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3198a63ad087d434980e8d132b344989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mShadowMapSlot: 0
+  color: {r: 1, g: 1, b: 1, a: 1}
+  falloffExponent: 0.2
+  angleFalloffExponent: 0
 --- !u!212 &212914751762338308
 SpriteRenderer:
   m_ObjectHideFlags: 1

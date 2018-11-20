@@ -17,35 +17,14 @@ public class CharacterAnimator : MonoBehaviour
     public GameObject audioClipPlayerPrefab;
 
     public float timePerFrame;
-    public float deadPauseDuration;
-    public float deadFadeDuration;
-    public float deadTargetLightFallOffExponent;
-    public float deadTargetAngularLightFallOffExponent;
-    [Range (0,1)]
-    public float deadTargetLightFallOffTimeOffset;
-    [Range(0, 1)]
-    public float deadTargetAngularLightShutoffPoint;
-    [Range(0, 1)]
-    public float deadTargetCompleteShutoffPoint;
 
-    private SpriteRenderer spriteRenderer;
-    public Light2D light2D;
-    public MeshRenderer lightMeshRenderer;
+    protected SpriteRenderer spriteRenderer;
 
-    private float lightOriginalFallOffExponent;
-
-    bool isMoving;
-    bool isDead;
+    protected bool isMoving;
+    protected bool isDead;
 
     float t;
     int currentFrame; // 4 states 0 - 3
-
-    public void Awake()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        lightOriginalFallOffExponent = light2D.falloffExponent;
-        Initialize();
-    }
 
     public void Move(Vector2 position, float dt)
     {
@@ -79,38 +58,18 @@ public class CharacterAnimator : MonoBehaviour
         //if (playFootstep[f]) AudioClipPlayer.Play(footstepClip,Random.Range(0.9f,1.1f),footstepVolume,position,audioClipPlayerPrefab);
     }
 
-    public IEnumerator DieAnim()
+    public virtual IEnumerator DieAnim()
     {
-        if (isDead) { Debug.Log("Dead body dying once more alert!"); yield break; } 
+        if (isDead) { Debug.Log("Dead body dying once more alert!"); yield break; }
         isDead = true;
         SetFrame(deathFrame, this.transform.position);
-        yield return new WaitForSeconds(deadPauseDuration);
-
-        float _progress = 0;
-        float _smoothProgress = 0;
-        float _startTime = Time.time;
-        Color _curColor = spriteRenderer.color;
-        while (_progress < 1)
-        {
-            _progress = (Time.time - _startTime) / deadFadeDuration;
-            _smoothProgress = Mathf.Lerp(0, 1, _progress);
-            _curColor.a = Mathf.Lerp(1, 0, 1.6f * _smoothProgress);
-            spriteRenderer.color = _curColor;
-            light2D.falloffExponent = Mathf.Lerp(lightOriginalFallOffExponent, deadTargetLightFallOffExponent, Mathf.Pow(_smoothProgress + deadTargetLightFallOffTimeOffset, 6));
-            if (_progress > deadTargetAngularLightShutoffPoint) light2D.angleFalloffExponent = Mathf.Lerp(0, deadTargetAngularLightFallOffExponent, Mathf.Pow((_progress - deadTargetAngularLightShutoffPoint) / (1 - deadTargetAngularLightShutoffPoint) + deadTargetLightFallOffTimeOffset, 5));
-            if (_progress > deadTargetCompleteShutoffPoint) lightMeshRenderer.enabled = false;
-            yield return new WaitForFixedUpdate();
-        }
+        Debug.Log("There is no DieAnim available for this character, did you forget to overide me?");
+        yield break;
     }
 
-    public void Initialize()
+    public virtual void Initialize()
     {
-        Color _curColor = spriteRenderer.color;
-        light2D.angleFalloffExponent = 0;
-        light2D.falloffExponent = lightOriginalFallOffExponent;
-        lightMeshRenderer.enabled = true;
-        _curColor.a = 1;
-        spriteRenderer.color = _curColor;
+        spriteRenderer = GetComponent<SpriteRenderer>();
         isDead = false;
         Halt();
     }

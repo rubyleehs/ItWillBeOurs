@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent (typeof(Rigidbody2D))]
 public class PlayerManager : HistoryAgent {
 
-    public int teamIndex;
+    public int I_teamIndex;
     //public Camera playerCam;
 
     public float walkingSpeed = 1.0f;
@@ -20,17 +20,18 @@ public class PlayerManager : HistoryAgent {
     protected override void Awake()
     {
         base.Awake();
+        Initialize(-1, -1, Vector3.zero, 0);
     }
 
     protected void Start()
     {
-        rb = this.GetComponent<Rigidbody2D>();
-        Initialize(-1, -1, Vector3.zero, 0);
+        //Initialize(-1, -1, Vector3.zero, 0);
     }
 
     public override void Initialize(int _teamIndex, int _recordingIndex, Vector2 _position, float _angle)
     {
-        if(_teamIndex < 0) { _teamIndex = teamIndex; Debug.Log("invalid _teamIndex, using teamIndex"); }
+        rb = this.GetComponent<Rigidbody2D>();
+        if (_teamIndex < 0) { _teamIndex = I_teamIndex; Debug.Log("invalid _teamIndex, using I_teamIndex"); }
         Debug.Log(historyManager);
         if(_recordingIndex < 0) { _recordingIndex = historyManager.teamHistoryData[_teamIndex].recordings.Count; Debug.Log("invalid _recordingIndex, using teamHistoryData recording Count"); }
 
@@ -66,8 +67,8 @@ public class PlayerManager : HistoryAgent {
 
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            historyManager.teamHistoryData[teamIndex].recordings.Add(GetAndEndCurrentRecording());
-            StartCoroutine(historyManager.Playback(teamIndex, 0));
+            historyManager.teamHistoryData[historyAgentStats.teamIndex].recordings.Add(GetAndEndCurrentRecording());
+            StartCoroutine(historyManager.Playback(historyAgentStats.teamIndex, 0));
         }
         if (Input.GetKey(KeyCode.T)) ; //Kill();
 

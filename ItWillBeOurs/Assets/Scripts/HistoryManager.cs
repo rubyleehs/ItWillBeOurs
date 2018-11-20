@@ -35,11 +35,10 @@ public class HistoryManager : MonoBehaviour
     {
         samplingInterval = I_samplingInterval;
         teamHistoryData = new List<TeamHistoryData>();
-        for (int i = 0; i < GameManager.numOfTeams; i++)
+        for (int i = 0; i < GameManager.teamData.Length; i++)
         {
             teamHistoryData.Add(new TeamHistoryData { recordings = new List<List<InstanceData>>() });
         }
-        Debug.Log(teamHistoryData.Count);
     }
 
     public IEnumerator Playback(int _teamIndex, int _recordingIndex)
@@ -65,6 +64,8 @@ public class HistoryManager : MonoBehaviour
             if (_shadow.historyAgentStats.currentHitPoints <= 0)
             {
                 yield return StartCoroutine(_shadow.animator.DieAnim());
+                _shadow.Pool();
+                StartCoroutine(Playback(_teamIndex, _recordingIndex));
                 //playerShadows.Remove(psc);
                 yield break;
             }
