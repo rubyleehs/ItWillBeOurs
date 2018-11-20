@@ -23,11 +23,6 @@ public class PlayerManager : HistoryAgent {
         Initialize(-1, -1, Vector3.zero, 0);
     }
 
-    protected void Start()
-    {
-        //Initialize(-1, -1, Vector3.zero, 0);
-    }
-
     public override void Initialize(int _teamIndex, int _recordingIndex, Vector2 _position, float _angle)
     {
         rb = this.GetComponent<Rigidbody2D>();
